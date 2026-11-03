@@ -38,6 +38,7 @@ index.html      صفحه‌ی اصلی
 css/style.css   ظاهر بازی
 js/puzzle.js    مدل پازل: حالت‌ها، h2، حرکت، قابل‌حل بودن
 js/astar.js     الگوریتم A* و Min-Heap
+js/confetti.js  انیمیشن جشن پیروزی
 js/app.js       رابط کاربری
 ```
 

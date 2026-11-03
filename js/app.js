@@ -20,7 +20,9 @@
   let solution = null; // { path, directions } for the current state, or null
   let step = 0; // how many solution steps have been applied
   let timer = null;
+  let wasSolved = false;
   const tileEls = new Map();
+  const progressBar = $("progressBar");
 
   function buildTiles() {
     boardEl.innerHTML = "";
@@ -45,8 +47,8 @@
     state.forEach((v, i) => {
       if (v === 0) return;
       const el = tileEls.get(v);
-      el.style.left = `calc(8px + ${i % SIZE} * (100% - 16px) / 3)`;
-      el.style.top = `calc(8px + ${Math.floor(i / SIZE)} * (100% - 16px) / 3)`;
+      el.style.left = `calc(10px + ${i % SIZE} * (100% - 20px) / 3)`;
+      el.style.top = `calc(10px + ${Math.floor(i / SIZE)} * (100% - 20px) / 3)`;
       el.classList.toggle("placed", GOAL[i] === v);
     });
     setStat("movesStat", moves);
@@ -55,6 +57,11 @@
     const solved = isGoal(state);
     bannerEl.hidden = !solved;
     if (solved) bannerEl.textContent = `حل شد! 🎉 تعداد حرکات: ${faDigits(moves)}`;
+    if (solved && !wasSolved) Confetti.burst();
+    wasSolved = solved;
+
+    const total = solution ? solution.directions.length : 0;
+    progressBar.style.width = solved ? "100%" : total ? `${(step / total) * 100}%` : "0";
 
     const hasPlan = solution !== null && step < solution.directions.length;
     playBtn.disabled = !hasPlan && timer === null;
@@ -66,7 +73,7 @@
   function stopPlaying() {
     clearInterval(timer);
     timer = null;
-    playBtn.textContent = "پخش";
+    playBtn.textContent = "▶ پخش";
   }
 
   function clearSolution() {
@@ -138,7 +145,7 @@
       render();
       return;
     }
-    playBtn.textContent = "توقف";
+    playBtn.textContent = "⏸ توقف";
     timer = setInterval(advance, Number(speedEl.value));
     advance();
   }

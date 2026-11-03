@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>StarSlide | پازل ۸ با A*</title>
   <meta name="description" content="بازی پازل ۳×۳ که با الگوریتم A* و هیوریستیک h2 (فاصله منهتن) حل می‌شود.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Vazirmatn:wght@400;500;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
   <main class="app">
     <header>
       <h1>Star<span>Slide</span></h1>
@@ -18,10 +24,10 @@
     <p class="banner" id="banner" hidden></p>
 
     <section class="controls">
-      <button id="newBtn">حالت تصادفی جدید</button>
-      <button id="solveBtn" class="primary">حل با A*</button>
-      <button id="playBtn" disabled>پخش</button>
-      <button id="stepBtn" disabled>گام بعد</button>
+      <button id="newBtn">🎲 حالت تصادفی جدید</button>
+      <button id="solveBtn" class="primary">⭐ حل با A*</button>
+      <button id="playBtn" disabled>▶ پخش</button>
+      <button id="stepBtn" disabled>⏭ گام بعد</button>
       <label class="speed">سرعت
         <select id="speed">
           <option value="900">کند</option>
@@ -30,6 +36,8 @@
         </select>
       </label>
     </section>
+
+    <div class="progress" aria-hidden="true"><div id="progressBar"></div></div>
 
     <section class="stats">
       <div><span id="movesStat">۰</span><small>حرکت انجام‌شده</small></div>
@@ -46,12 +54,13 @@
     </section>
 
     <footer>
-      روی خانه‌های کنار جای خالی کلیک کنید تا خودتان بازی کنید، یا بگذارید A* بهترین مسیر را پیدا کند.
+      روی خانه‌های کنار جای خالی کلیک کنید تا خودتان بازی کنید،<br>یا بگذارید A* بهترین مسیر را پیدا کند.
     </footer>
   </main>
 
   <script src="js/puzzle.js"></script>
   <script src="js/astar.js"></script>
+  <script src="js/confetti.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
