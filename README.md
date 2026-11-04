@@ -2,7 +2,7 @@
 
 # StarSlide ⭐
 
-<p dir="rtl"><b>حل پازل ۳×۳ (۸-پازل) با الگوریتم A* و هیوریستیک h2</b></p>
+**An 8-puzzle (3×3 sliding tiles) solved with A\* search and the h2 heuristic**
 
 <p>
   <a href="https://starslide.emadhabibnia.ir"><img src="https://img.shields.io/badge/demo-starslide.emadhabibnia.ir-34d399?style=flat-square&labelColor=0f1220" alt="Live demo"></a>
@@ -11,37 +11,37 @@
   <img src="https://img.shields.io/badge/solutions-optimal-22d3ee?style=flat-square&labelColor=0f1220" alt="Optimal solutions">
 </p>
 
-<p dir="rtl">
-  <a href="https://starslide.emadhabibnia.ir">🎮 اجرای آنلاین</a> &nbsp;·&nbsp;
-  <a href="#الگوریتم">الگوریتم</a> &nbsp;·&nbsp;
-  <a href="#نتایج-تست">نتایج تست</a> &nbsp;·&nbsp;
-  <a href="#english">English</a>
+<p>
+  <b>English</b> &nbsp;·&nbsp; <a href="./README.fa.md">فارسی</a>
+</p>
+
+<p>
+  <a href="https://starslide.emadhabibnia.ir">🎮 Live demo</a> &nbsp;·&nbsp;
+  <a href="#how-it-works">How it works</a> &nbsp;·&nbsp;
+  <a href="#test-results">Test results</a> &nbsp;·&nbsp;
+  <a href="#run-it">Run it</a>
 </p>
 
 <br>
 
 <table>
   <tr>
-    <td align="center"><img src="docs/screenshots/02-astar-solution.png" width="220" alt="مسیر بهینه‌ی پیداشده با A*"></td>
-    <td align="center"><img src="docs/screenshots/03-playing.png" width="220" alt="پخش مسیر حل"></td>
-    <td align="center"><img src="docs/screenshots/04-solved.png" width="220" alt="پازل حل شد"></td>
+    <td align="center"><img src="docs/screenshots/02-astar-solution.png" width="220" alt="The optimal move sequence found by A*"></td>
+    <td align="center"><img src="docs/screenshots/03-playing.png" width="220" alt="Playing back the solution"></td>
+    <td align="center"><img src="docs/screenshots/04-solved.png" width="220" alt="The puzzle solved"></td>
   </tr>
   <tr>
-    <td align="center" dir="rtl"><sub>مسیر بهینه با A*</sub></td>
-    <td align="center" dir="rtl"><sub>در حال پخش</sub></td>
-    <td align="center" dir="rtl"><sub>حل شد</sub></td>
+    <td align="center"><sub>Optimal path with A*</sub></td>
+    <td align="center"><sub>Playing it back</sub></td>
+    <td align="center"><sub>Solved</sub></td>
   </tr>
 </table>
 
 </div>
 
-<div dir="rtl">
+## The problem
 
-## صورت مسئله
-
-بازی از یک حالت **تصادفی** شروع می‌شود و باید با لغزاندن مهره‌ها به خانه‌ی خالی، به حالت هدف رسید. برنامه با **A\*** و تابع هیوریستیک **h2** بهترین (کوتاه‌ترین) دنباله‌ی حرکات را از حالت شروع تا هدف پیدا می‌کند و آن را نمایش و اجرا می‌کند.
-
-</div>
+The game starts from a **random** state. Slide tiles into the blank cell until you reach the goal. StarSlide finds the **best (shortest) sequence of moves** from the start to the goal with **A\*** and the **h2** heuristic, then shows it and plays it back.
 
 <div align="center">
 
@@ -51,42 +51,36 @@
 7 8 _
 ```
 
-<sub dir="rtl">حالت هدف</sub>
+<sub>goal state</sub>
 
 </div>
 
-<div dir="rtl">
+## Features
 
-## امکانات
+- Random start state that is **always solvable** (checked by counting inversions)
+- Play by hand by clicking tiles, with the live **h2** value of the current state
+- Solve with A\* and see the optimal move sequence (direction the blank moves)
+- Auto-play or step through the solution, at an adjustable speed
+- Search stats: optimal length, nodes expanded and generated, solve time
+- Vanilla JavaScript: no dependencies, no server, one static page
 
-- تولید حالت شروع تصادفی که **همیشه قابل‌حل** است (بررسی با شمارش وارونگی‌ها)
-- بازی دستی با کلیک روی مهره‌ها، همراه با نمایش لحظه‌ای مقدار <code dir="ltr">h2</code>
-- حل با A\* و نمایش دنباله‌ی بهینه‌ی حرکات (جهت حرکت خانه‌ی خالی)
-- پخش خودکار یا گام‌به‌گام مسیر حل، با سرعت قابل تنظیم
-- آمار جست‌وجو: طول مسیر بهینه، گره‌های گسترش‌یافته و تولیدشده، زمان حل
-- جاوااسکریپت خالص؛ بدون وابستگی، بدون سرور، فقط یک صفحه‌ی ثابت
+## How it works
 
-## الگوریتم
-
-<div dir="ltr" align="center">
+<div align="center">
 
 **f(n) = g(n) + h2(n)**
 
 </div>
 
-- <code dir="ltr">g(n)</code> — تعداد حرکات از حالت شروع تا گره n
-- <code dir="ltr">h2(n)</code> — مجموع فاصله‌ی منهتن هر مهره از خانه‌ی هدفش
+- `g(n)`: number of moves from the start to node n
+- `h2(n)`: sum of the Manhattan distances of every tile from its goal cell
 
-**چرا جواب بهینه است؟** هر حرکت فقط یک مهره را یک خانه جابه‌جا می‌کند، پس h2 در هر حرکت حداکثر ۱ واحد تغییر می‌کند. نتیجه:
+**Why the answer is optimal.** One move slides one tile by one cell, so h2 changes by at most 1 per move. That makes h2:
 
-- h2 **قابل‌قبول** (admissible) است: هرگز هزینه‌ی واقعی را بیشتر از مقدار واقعی تخمین نمی‌زند.
-- h2 **سازگار** (consistent) است: <code dir="ltr">h(n) ≤ 1 + h(n′)</code>.
+- **admissible**: it never overestimates the real remaining cost
+- **consistent**: `h(n) ≤ 1 + h(n′)` for every neighbour n′
 
-با هیوریستیک سازگار، اولین باری که حالت هدف از صف خارج شود، کوتاه‌ترین مسیر پیدا شده است و هیچ گره‌ای نیاز به باز شدن دوباره ندارد.
-
-</div>
-
-<div dir="ltr">
+With a consistent heuristic, the first time the goal leaves the open list its path is the shortest one, and no node ever has to be reopened.
 
 ```text
 open  ← min-heap ordered by f = g + h2 (ties: lower h2 first)
@@ -102,17 +96,11 @@ while open is not empty:
         push s with f = g' + h2(s)
 ```
 
-</div>
+The priority queue is a **min-heap**. Duplicate states are dropped with the `closed` set and the best `g` seen for each state.
 
-<div dir="rtl">
+## Test results
 
-صف اولویت با **Min-Heap** پیاده‌سازی شده است و حالت‌های تکراری با مجموعه‌ی <code dir="ltr">closed</code> و بهترین <code dir="ltr">g</code> شناخته‌شده حذف می‌شوند.
-
-## نتایج تست
-
-درستی الگوریتم با یک مرجع مستقل سنجیده شده است: یک BFS از حالت هدف، فاصله‌ی واقعی **همه‌ی ۱۸۱٬۴۴۰ حالت قابل‌دسترس** را می‌دهد و طول مسیر A\* برای ۳۰۰ حالت تصادفی با آن مقایسه می‌شود.
-
-<div dir="ltr">
+The solver is checked against an independent reference: a BFS from the goal gives the true distance of **all 181,440 reachable states**, and A\*'s path length is compared with it for 300 random starts.
 
 ```text
 $ node tests/verify.js
@@ -123,67 +111,35 @@ non-optimal or invalid results: 0
 max nodes expanded: 5563, max time: 3 ms
 ```
 
-</div>
+All 300 solutions were exactly as short as possible. The hardest 8-puzzle states need 31 moves, and even those solve in a few milliseconds.
 
-یعنی در هر ۳۰۰ حالت، مسیر A\* دقیقاً کوتاه‌ترین مسیر ممکن بود. سخت‌ترین حالت‌های ۸-پازل ۳۱ حرکت لازم دارند و حل آن‌ها هم چند میلی‌ثانیه طول می‌کشد.
+## Project structure
 
-## ساختار پروژه
-
-| فایل | توضیح |
+| File | What it does |
 | --- | --- |
-| <code dir="ltr">index.html</code> | صفحه‌ی اصلی |
-| <code dir="ltr">css/style.css</code> | ظاهر بازی |
-| <code dir="ltr">js/puzzle.js</code> | مدل پازل: حالت‌ها، h2، حرکت، قابل‌حل بودن |
-| <code dir="ltr">js/astar.js</code> | الگوریتم A\* و Min-Heap |
-| <code dir="ltr">js/confetti.js</code> | انیمیشن جشن پیروزی |
-| <code dir="ltr">js/app.js</code> | رابط کاربری |
-| <code dir="ltr">tests/verify.js</code> | بررسی بهینه‌بودن A\* با BFS |
-| <code dir="ltr">docs/screenshots/</code> | تصاویر |
+| `index.html` | The page |
+| `css/style.css` | Look and feel |
+| `js/puzzle.js` | Puzzle model: states, h2, moves, solvability |
+| `js/astar.js` | A\* and the min-heap |
+| `js/confetti.js` | Victory animation |
+| `js/app.js` | User interface |
+| `tests/verify.js` | Checks A\* is optimal against BFS |
+| `docs/screenshots/` | Screenshots |
 
-</div>
+## Run it
 
-<div dir="rtl">
-
-## اجرا
-
-فایل <code dir="ltr">index.html</code> را در مرورگر باز کنید، یا یک سرور ساده بالا بیاورید:
-
-</div>
+Open `index.html` in a browser, or serve the folder:
 
 ```bash
 npx serve .
 ```
 
-<div dir="rtl">
-
-اجرای تست:
-
-</div>
+Run the verification:
 
 ```bash
 node tests/verify.js
 ```
 
-<div dir="rtl">
+## Deploy
 
-## انتشار
-
-بازی یک سایت ثابت است و روی هر وب‌سرور (nginx، GitHub Pages و غیره) اجرا می‌شود. نسخه‌ی آنلاین: **https://starslide.emadhabibnia.ir**
-
-</div>
-
----
-
-## English
-
-**StarSlide** is a 3×3 sliding-tile (8-puzzle) game. It starts from a random solvable state and finds the shortest sequence of moves to the goal with **A\*** and the **h2** heuristic (sum of Manhattan distances).
-
-- Optimal by construction: h2 is admissible and consistent, so the first time the goal leaves the open list its path is shortest.
-- Verified against a BFS over all 181,440 reachable states: 300 random starts, 0 non-optimal results (`node tests/verify.js`).
-- Vanilla JavaScript, zero dependencies, static files only.
-- Live demo: https://starslide.emadhabibnia.ir
-
-```bash
-git clone https://github.com/Emadhabibnia1385/StarSlide.git
-cd StarSlide && node tests/verify.js
-```
+StarSlide is a static site, so any web server works (nginx, GitHub Pages, and so on). Live version: **https://starslide.emadhabibnia.ir**
