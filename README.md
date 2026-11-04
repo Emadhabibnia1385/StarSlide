@@ -4,6 +4,14 @@
 
 پروژه‌ی درس هوش مصنوعی — جاوااسکریپت خالص، بدون وابستگی و بدون نیاز به سرور.
 
+🔗 **اجرای آنلاین:** https://starslide.emadhabibnia.ir
+
+## تصاویر
+
+| شروع (حالت تصادفی) | حل با A* | حل در حال پخش | حل شد |
+|:--:|:--:|:--:|:--:|
+| <img src="docs/screenshots/01-start.png" width="200"> | <img src="docs/screenshots/02-astar-solution.png" width="200"> | <img src="docs/screenshots/03-playing.png" width="200"> | <img src="docs/screenshots/04-solved.png" width="200"> |
+
 ## حالت هدف
 
 ```
